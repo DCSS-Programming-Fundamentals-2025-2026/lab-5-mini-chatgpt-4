@@ -7,12 +7,12 @@ public class MathOpsImpl : IMathOps
 {
     public float[] Softmax(ReadOnlySpan<float> logits)
     {
-        throw new NotImplementedException();
+        return SoftmaxCalculator.Softmax(logits);
     }
 
     public float CrossEntropyLoss(ReadOnlySpan<float> logits, int target)
     {
-        throw new NotImplementedException();
+        return LossCalculator.CrossEntropyLoss(logits, target);
     }
 
     public int ArgMax(ReadOnlySpan<float> scores)
@@ -22,6 +22,6 @@ public class MathOpsImpl : IMathOps
 
     public int SampleFromProbs(ReadOnlySpan<float> probs, Random rng)
     {
-        throw new NotImplementedException();
+        return ProbabilitySampler.SampleFromProbs(probs, rng);
     }
 }
