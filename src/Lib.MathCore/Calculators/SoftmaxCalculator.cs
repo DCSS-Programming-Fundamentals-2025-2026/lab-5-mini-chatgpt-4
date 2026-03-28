@@ -7,7 +7,7 @@ public static class SoftmaxCalculator
     public static float[] Softmax(ReadOnlySpan<float> logits)
     {
         if (logits.Length == 0)
-            return Array.Empty<float>();
+            throw new ArgumentException("Logits cannot be empty");
 
         float max = logits[0];
         for (int i = 1; i < logits.Length; i++)

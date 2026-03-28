@@ -26,4 +26,18 @@ public class ProbabilitySamplerTests
 
         Assert.That(index, Is.EqualTo(1));
     }
+
+    [Test]
+    public void SampleFromProbs_EmptyArray_ThrowsException()
+    {
+        float[] probs = Array.Empty<float>();
+        var rng = new Random(555);
+
+        void act()
+        {
+            ProbabilitySampler.SampleFromProbs(probs, rng);
+        }
+
+        Assert.Throws<ArgumentException>(act);
+    }
 }

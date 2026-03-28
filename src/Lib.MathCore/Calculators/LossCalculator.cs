@@ -7,7 +7,10 @@ public static class LossCalculator
     public static float CrossEntropyLoss(ReadOnlySpan<float> logits, int target)
     {
         if (logits.Length == 0)
-            return 0f;
+            throw new ArgumentException("Logits cannot be empty");
+
+        if (target < 0 || target >= logits.Length)
+            throw new ArgumentOutOfRangeException(nameof(target));
 
         var probs = SoftmaxCalculator.Softmax(logits);
 

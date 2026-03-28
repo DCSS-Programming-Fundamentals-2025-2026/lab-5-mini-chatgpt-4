@@ -28,4 +28,31 @@ public class SoftmaxCalculatorTests
 
         Assert.That(probs[0], Is.GreaterThan(probs[1]));
     }
+
+    [Test]
+    public void Softmax_LargeLogits_IsStable()
+    {
+        float[] logits = { 1000f, 1000f, 1000f };
+
+        var probs = SoftmaxCalculator.Softmax(logits);
+
+        float sum = 0f;
+        foreach (var p in probs)
+            sum += p;
+
+        Assert.That(sum, Is.EqualTo(1f).Within(1e-5));
+    }
+
+    [Test]
+    public void Softmax_EmptyArray_ThrowsException()
+    {
+        float[] logits = Array.Empty<float>();
+
+        void act()
+        {
+            SoftmaxCalculator.Softmax(logits);
+        }
+
+        Assert.Throws<ArgumentException>(act);
+    }
 }

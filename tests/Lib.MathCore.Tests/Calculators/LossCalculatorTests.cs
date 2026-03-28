@@ -26,4 +26,43 @@ public class LossCalculatorTests
 
         Assert.That(loss, Is.GreaterThan(0f));
     }
+
+    [Test]
+    public void CrossEntropy_EmptyLogits_ThrowsException()
+    {
+        float[] logits = Array.Empty<float>();
+
+        void act()
+        {
+            LossCalculator.CrossEntropyLoss(logits, 0);
+        }
+
+        Assert.Throws<ArgumentException>(act);
+    }
+
+    [Test]
+    public void CrossEntropy_InvalidTargetNegative_ThrowsException()
+    {
+        float[] logits = { 1f, 2f };
+
+        void act()
+        {
+            LossCalculator.CrossEntropyLoss(logits, -1);
+        }
+
+        Assert.Throws<ArgumentOutOfRangeException>(act);
+    }
+
+    [Test]
+    public void CrossEntropy_TargetOutOfRange_ThrowsException()
+    {
+        float[] logits = { 1f, 2f };
+
+        void act()
+        {
+            LossCalculator.CrossEntropyLoss(logits, 5);
+        }
+
+        Assert.Throws<ArgumentOutOfRangeException>(act);
+    }
 }

@@ -7,7 +7,7 @@ public static class ProbabilitySampler
     public static int SampleFromProbs(ReadOnlySpan<float> probs, Random rng)
     {
         if (probs.Length == 0)
-            return 0;
+            throw new ArgumentException("Probs cannot be empty");
 
         float r = (float)rng.NextDouble();
 
